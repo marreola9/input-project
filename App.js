@@ -1,41 +1,23 @@
 import React, { useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { View, Text } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import styles from "./styles";
 
-function Input(props) {
-  return (
-    <View style={styles.textInputContainer}>
-      <Text style={styles.textInputLabel}>{props.label}</Text>
-      <TextInput style={styles.textInput} {...props} />
-    </View>
-  );
-}
-
-export default function CollectingTextInput() {
-  const [changedText, setChangedText] = useState("");
-  const [submittedText, setSubmittedText] = useState("");
+export default function App() {
+  const [selectedValue, setSelectedValue] = useState("");
 
   return (
     <View style={styles.container}>
-      <Input label="Basic Text Input:" />
-      <Input label="Password Input:" secureTextEntry />
-      <Input label="Return Key:" returnKeyType="search" />
-      <Input label="Placeholder Text:" placeholder="Search" />
-      <Input
-        label="Input Events:"
-        onChangeText={(e) => {
-          setChangedText(e);
-        }}
-        onSubmitEditing={(e) => {
-          setSubmittedText(e.nativeEvent.text);
-        }}
-        onFocus={() => {
-          setChangedText("");
-          setSubmittedText("");
-        }}
-      />
-      <Text>Changed: {changedText}</Text>
-      <Text>Submitted: {submittedText}</Text>
+      <Text>Select an Option for a Car</Text>
+      <Picker
+        selectedValue={selectedValue}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+      >
+        <Picker.Item label="Mustang" value="must" />
+        <Picker.Item label="Corvette" value="corv" />
+        <Picker.Item label="Camaro" value="cam" />
+      </Picker>
+      <Text>Selected Value: {selectedValue}</Text>
     </View>
   );
 }
