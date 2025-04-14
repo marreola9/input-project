@@ -7,19 +7,8 @@ export default StyleSheet.create({
     padding: 10,
     paddingTop: 80,
   },
-
-  textInputContainer: {
-    alignSelf: "stretch",
-    marginBottom: 30,
-  },
-
-  textInputLabel: {
-    marginBottom: 4,
-  },
-
-  textInput: {
-    backgroundColor: "white",
-    height: 20,
-    fontSize: 11,
+  customSwitch: {
+    alignItems: "center",
+    margin: 10,
   },
 });
