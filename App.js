@@ -1,27 +1,33 @@
 import React, { useState } from "react";
-import { View } from "react-native";
-import CustomSwitch from "./Switch";
+import { View, Button, Platform } from "react-native";
 import styles from "./styles";
-import { Switch } from "react-native-web";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function App() {
-  const [first, setFirst] = useState(false);
-  const [second, setSecond] = useState(false);
+  // useState to manage the date and time
+  const [time, setTime] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
+
+  // make a function that when the datapicker is changed, it will detect if the platfom is IOS
+  const onChange = (event, selectedDate) => {
+    setShowPicker(Platform.OS === "ios");
+    if (selectedDate) {
+      setTime(selectedDate);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Switch
-        label="Disable Next Switch"
-        value={first}
-        disabled={second}
-        onValueChange={setFirst}
-      />
-      <Switch
-        label="Disable Previous Switch"
-        value={second}
-        disabled={first}
-        onValueChange={setSecond}
-      />
+      <Button title="Pick Time" onPress={() => setShowPicker(true)} />
+      {showPicker && (
+        <DateTimePicker
+          value={time}
+          mode="time"
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
     </View>
   );
 }
